@@ -3,6 +3,7 @@ package com.flipperdevices.ifrmvp.core.ui.layout.shared
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,7 +32,7 @@ fun SharedTopBar(
     modifier: Modifier = Modifier,
     title: String = "",
     subtitle: String = "",
-    actions: @Composable () -> Unit = {}
+    actions: @Composable BoxScope.() -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -59,7 +60,7 @@ fun SharedTopBar(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .weight(weight = 3f, fill = false)
+                .weight(weight = 2f, fill = false)
                 .padding(horizontal = 8.dp)
         ) {
             Text(
@@ -81,7 +82,7 @@ fun SharedTopBar(
             modifier = Modifier.weight(weight = 1f),
             contentAlignment = Alignment.CenterEnd,
             content = {
-                actions.invoke()
+                actions.invoke(this)
             }
         )
     }
@@ -121,17 +122,26 @@ private fun SharedTopBarPreview() {
                 subtitle = "Subtitle",
                 onBackClick = {},
                 actions = {
-                    Row(modifier = Modifier.weight(1f)) {
-                        repeat(2) {
-                            Text(
-                                text = "Action",
-                                color = LocalPalletV2.current.text.title.blackOnColor,
-                                style = LocalTypography.current.titleEB18,
-                                textAlign = TextAlign.Center,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
+                    Row(
+                        modifier = Modifier,
+                        horizontalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
+                        Text(
+                            text = "Action",
+                            color = LocalPalletV2.current.text.title.blackOnColor,
+                            style = LocalTypography.current.titleEB18,
+                            textAlign = TextAlign.Center,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Icon(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .clickableRipple(bounded = false, onClick = {}),
+                            painter = painterResource(DesignSystem.drawable.ic_back),
+                            contentDescription = null,
+                            tint = LocalPalletV2.current.icon.blackAndWhite.blackOnColor
+                        )
                     }
                 }
             )

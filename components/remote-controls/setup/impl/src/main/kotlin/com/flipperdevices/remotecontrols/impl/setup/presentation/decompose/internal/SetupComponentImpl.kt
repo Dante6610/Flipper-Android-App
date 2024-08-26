@@ -15,6 +15,7 @@ import com.flipperdevices.remotecontrols.api.SaveTempSignalApi
 import com.flipperdevices.remotecontrols.api.SetupScreenDecomposeComponent
 import com.flipperdevices.remotecontrols.impl.setup.presentation.decompose.SetupComponent
 import com.flipperdevices.remotecontrols.impl.setup.presentation.decompose.internal.mapping.toFFFormat
+import com.flipperdevices.remotecontrols.impl.setup.presentation.viewmodel.ConnectionViewModel
 import com.flipperdevices.remotecontrols.impl.setup.presentation.viewmodel.CurrentSignalViewModel
 import com.flipperdevices.remotecontrols.impl.setup.presentation.viewmodel.HistoryViewModel
 import com.flipperdevices.ui.decompose.DecomposeOnBackParameter
@@ -41,12 +42,19 @@ class SetupComponentImpl @AssistedInject constructor(
     currentSignalViewModelFactory: CurrentSignalViewModel.Factory,
     createHistoryViewModel: Provider<HistoryViewModel>,
     createSaveTempSignalApi: Provider<SaveTempSignalApi>,
-    createDispatchSignalApi: Provider<DispatchSignalApi>
+    createDispatchSignalApi: Provider<DispatchSignalApi>,
+    createConnectionViewModel: Provider<ConnectionViewModel>
 ) : SetupComponent, ComponentContext by componentContext {
     private val saveSignalApi = instanceKeeper.getOrCreate(
         key = "SetupComponent_saveSignalApi_${param.brandId}_${param.categoryId}",
         factory = {
             createSaveTempSignalApi.get()
+        }
+    )
+    private val connectionViewModel = instanceKeeper.getOrCreate(
+        key = "SetupComponent_connectionViewModel_${param.brandId}_${param.categoryId}",
+        factory = {
+            createConnectionViewModel.get()
         }
     )
     private val historyViewModel = instanceKeeper.getOrCreate(
@@ -66,10 +74,12 @@ class SetupComponentImpl @AssistedInject constructor(
         factory = {
             currentSignalViewModelFactory.invoke(param) { responseModel ->
                 val signalModel = responseModel.signalResponse?.signalModel ?: return@invoke
-                saveSignalApi.saveFile(
-                    textContent = signalModel.toFFFormat().openStream().reader().readText(),
-                    nameWithExtension = TEMP_FILE_NAME,
-                    extFolderPath = ABSOLUTE_TEMP_FOLDER_PATH
+                saveSignalApi.saveFiles(
+                    SaveTempSignalApi.FileDesc(
+                        textContent = signalModel.toFFFormat().openStream().reader().readText(),
+                        nameWithExtension = TEMP_FILE_NAME,
+                        extFolderPath = ABSOLUTE_TEMP_FOLDER_PATH
+                    )
                 )
             }
         }
@@ -79,29 +89,22 @@ class SetupComponentImpl @AssistedInject constructor(
         saveSignalApi.state,
         dispatchSignalApi.state,
         dispatchSignalApi.isEmulated,
-        transform = { signalState, saveState, dispatchState, isEmulated ->
+        connectionViewModel.state,
+        transform = { signalState, saveState, dispatchState, isEmulated, connectionState ->
             val emulatingState = (dispatchState as? DispatchSignalApi.State.Emulating)
             when (signalState) {
                 CurrentSignalViewModel.State.Error -> SetupComponent.Model.Error
                 is CurrentSignalViewModel.State.Loaded -> {
                     when (saveState) {
                         SaveTempSignalApi.State.Error -> SetupComponent.Model.Error
+                        is SaveTempSignalApi.State.Uploading,
+                        SaveTempSignalApi.State.Uploaded,
                         SaveTempSignalApi.State.Pending -> SetupComponent.Model.Loaded(
                             response = signalState.response,
                             isFlipperBusy = dispatchState is DispatchSignalApi.State.FlipperIsBusy,
                             emulatedKeyIdentifier = emulatingState?.ifrKeyIdentifier,
-                            isEmulated = isEmulated
-                        )
-
-                        SaveTempSignalApi.State.Uploaded -> SetupComponent.Model.Loaded(
-                            response = signalState.response,
-                            isFlipperBusy = dispatchState is DispatchSignalApi.State.FlipperIsBusy,
-                            emulatedKeyIdentifier = emulatingState?.ifrKeyIdentifier,
-                            isEmulated = isEmulated
-                        )
-
-                        is SaveTempSignalApi.State.Uploading -> SetupComponent.Model.Loading(
-                            saveState.progress
+                            isEmulated = isEmulated,
+                            connectionState = connectionState
                         )
                     }
                 }
