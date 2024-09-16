@@ -1,13 +1,16 @@
 package com.flipperdevices.remotecontrols.impl.grid.remote.presentation.decompose
 
 import com.arkivanov.decompose.ComponentContext
+import com.flipperdevices.faphub.errors.api.throwable.FapHubError
 import com.flipperdevices.ifrmvp.model.IfrKeyIdentifier
 import com.flipperdevices.ifrmvp.model.PagesLayout
 import com.flipperdevices.infrared.api.InfraredConnectionApi.InfraredEmulateState
 import com.flipperdevices.infrared.editor.core.model.InfraredRemote
 import com.flipperdevices.keyedit.api.NotSavedFlipperKey
+import com.flipperdevices.remotecontrols.api.FlipperDispatchDialogApi
 import com.flipperdevices.remotecontrols.api.SaveTempSignalApi
 import com.flipperdevices.remotecontrols.api.model.ServerRemoteControlParam
+import com.flipperdevices.remotecontrols.impl.grid.remote.presentation.viewmodel.RemoteGridViewModel.State
 import com.flipperdevices.ui.decompose.DecomposeOnBackParameter
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +26,7 @@ interface RemoteGridComponent {
 
     fun pop()
 
-    fun dismissBusyDialog()
+    fun dismissDialog()
 
     fun save()
 
@@ -35,7 +38,7 @@ interface RemoteGridComponent {
         data class Loaded(
             val pagesLayout: PagesLayout,
             val remotes: ImmutableList<InfraredRemote>,
-            val isFlipperBusy: Boolean = false,
+            val flipperDialog: FlipperDispatchDialogApi.DialogType? = null,
             val emulatedKey: IfrKeyIdentifier? = null,
             val saveState: SaveTempSignalApi.State,
             val connectionState: InfraredEmulateState
@@ -49,7 +52,7 @@ interface RemoteGridComponent {
                 ?.coerceIn(minimumValue = 0, maximumValue = 100)
         }
 
-        data object Error : Model
+        data class Error(val throwable: FapHubError) : Model
 
         val isFilesSaved: Boolean
             get() = this is Loaded && !this.isSavingFiles

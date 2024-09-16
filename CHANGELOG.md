@@ -9,11 +9,20 @@ Attention: don't forget to add the flag for F-Droid before release
 - [Feature] Remove bond on retry pair
 - [Feature] Add onetap widget
 - [Feature] Save, edit, share remote control
+- [Feature] More UI elements for remote-controls
+- [Feature] Add How to Use dialog into remote-controls
+- [Feature] Skip infrared signals on setup screen
+- [Feature] Better user-ux when configuring remote control
+- [Feature] Navigate to previous setup item on remote controls
+- [Feature] Add flipper action dialogs into remote control and move it into bottombar
+- [Feature] Add error display into remote controls screens
+- [Feature] Add new icons for remote-controls
 - [Refactor] Load RemoteControls from flipper, emulating animation
 - [Refactor] Update to Kotlin 2.0
 - [Refactor] Replace Ktorfit with Ktor requests in remote-controls
 - [Refactor] Migrate :core:preference to KMP
 - [Refactor] Migrate :bridge:connection:* to KMP
+- [Refactor] Migrate :bridge:synchronization, :core:ktx and :core:theme to KMP
 - [Refactor] Remove ktorfit
 - [FIX] Distinct fap items by id in paging sources
 - [FIX] Battery level charge
@@ -28,6 +37,15 @@ Attention: don't forget to add the flag for F-Droid before release
 - [FIX] Relocate remote-controls button to infrared remotes screen
 - [FIX] Fap manifest caching
 - [FIX] Remote controls design issues
+- [FIX] Fix flaky test
+- [FIX] Infinite dispatch after screen close on remote-control screens
+- [FIX] Bad bottom sheet animation on infrared setup screen
+- [FIX] Share infrared remote after rename
+- [FIX] Fix app bar colors on remote controls
+- [FIX] Fix remote controls texts and favorite dropdown
+- [FIX] Move remote controls into tools tab
+- [FIX] Fix crash when saving files on remote controls
+- [FIX] Remove share from remote controls
 - [CI] Fix merge-queue files diff
 - [CI] Add https://github.com/LionZXY/detekt-decompose-rule
 - [CI] Enabling detekt module for android and kmp modules
@@ -35,6 +53,8 @@ Attention: don't forget to add the flag for F-Droid before release
 - [CI] Update deps
 - [CI] Merge CI workflows in one
 - [CI] Update CI changed-files action
+- [CI] Update CI for github runners
+- [CI] Remote self-hosted runners
 
 # 1.7.1
 

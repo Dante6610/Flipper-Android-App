@@ -1,6 +1,6 @@
 plugins {
     id("flipper.android-compose")
-    id("kotlin-parcelize")
+
     id("flipper.anvil")
     id("kotlinx-serialization")
 }
@@ -25,6 +25,8 @@ dependencies {
     implementation(projects.components.deeplink.api)
     implementation(projects.components.bottombar.api)
     implementation(projects.components.rootscreen.api)
+
+    implementation(projects.components.remoteControls.main.api)
 
     implementation(projects.components.bridge.dao.api)
     implementation(projects.components.bridge.synchronization.api)

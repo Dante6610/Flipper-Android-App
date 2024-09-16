@@ -111,6 +111,7 @@ include(
     ":components:core:progress",
     ":components:core:permission:api",
     ":components:core:permission:impl",
+    ":components:core:kmpparcelize",
 
     ":components:bottombar:api",
     ":components:bottombar:impl",
@@ -280,6 +281,7 @@ include(
     ":components:notification:noop",
 
     ":components:remote-controls:api-backend",
+    ":components:remote-controls:api-backend-flipper",
     ":components:remote-controls:core-model",
     ":components:remote-controls:core-ui",
     ":components:remote-controls:main:impl",

@@ -16,6 +16,7 @@ dependencies {
     implementation(projects.components.core.ui.ktx)
     implementation(projects.components.core.ui.res)
     implementation(projects.components.core.ui.dialog)
+    implementation(projects.components.core.preference)
 
     implementation(projects.components.bridge.dao.api)
     implementation(projects.components.bridge.service.api)
@@ -33,6 +34,7 @@ dependencies {
 
     implementation(projects.components.keyscreen.api)
     implementation(projects.components.share.api)
+    implementation(projects.components.faphub.errors.api)
 
     // Compose
     implementation(libs.compose.ui)

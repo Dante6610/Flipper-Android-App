@@ -22,6 +22,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import me.gulya.anvil.assisted.ContributesAssistedFactory
 
+@Suppress("LongParameterList")
 @ContributesAssistedFactory(AppGraph::class, ArchiveDecomposeComponent.Factory::class)
 class ArchiveDecomposeComponentImpl @AssistedInject constructor(
     @Assisted componentContext: ComponentContext,
@@ -29,7 +30,7 @@ class ArchiveDecomposeComponentImpl @AssistedInject constructor(
     @Assisted private val onBack: DecomposeOnBackParameter,
     private val openCategoryFactory: CategoryDecomposeComponent.Factory,
     private val searchFactory: SearchDecomposeComponent.Factory,
-    private val archiveScreenFactory: ArchiveScreenDecomposeComponentImpl.Factory
+    private val archiveScreenFactory: ArchiveScreenDecomposeComponentImpl.Factory,
 ) : ArchiveDecomposeComponent<ArchiveNavigationConfig>(),
     ComponentContext by componentContext,
     ResetTabDecomposeHandler {
