@@ -17,6 +17,8 @@ Attention: don't forget to add the flag for F-Droid before release
 - [Feature] Add flipper action dialogs into remote control and move it into bottombar
 - [Feature] Add error display into remote controls screens
 - [Feature] Add new icons for remote-controls
+- [Feature] Add experimental option to enable remote controls
+- [Feature] Better information during synchronization
 - [Refactor] Load RemoteControls from flipper, emulating animation
 - [Refactor] Update to Kotlin 2.0
 - [Refactor] Replace Ktorfit with Ktor requests in remote-controls
@@ -24,6 +26,9 @@ Attention: don't forget to add the flag for F-Droid before release
 - [Refactor] Migrate :bridge:connection:* to KMP
 - [Refactor] Migrate :bridge:synchronization, :core:ktx and :core:theme to KMP
 - [Refactor] Remove ktorfit
+- [Refactor] Add `core:storage`
+- [Refactor] Add `core:atomicfile`
+- [Refactor] Migrate filemanager to new ble api
 - [FIX] Distinct fap items by id in paging sources
 - [FIX] Battery level charge
 - [FIX] Button arrow tint
