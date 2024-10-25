@@ -24,9 +24,10 @@ androidDependencies {
 
     implementation(projects.components.filemngr.uiComponents)
     implementation(projects.components.filemngr.main.api)
-    implementation(projects.components.newfilemanager.api)
     implementation(projects.components.filemngr.listing.api)
     implementation(projects.components.filemngr.upload.api)
+    implementation(projects.components.filemngr.search.api)
+    implementation(projects.components.newfilemanager.api)
 
     // Compose
     implementation(libs.compose.ui)
