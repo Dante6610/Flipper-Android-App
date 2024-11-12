@@ -1,8 +1,9 @@
 # Changelog
 
-# 1.7.2 - In Progress
-Attention: don't forget to add the flag for F-Droid before release
+# 1.8.1 - In Progress
 
+# 1.8.0
+Attention: don't forget to add the flag for F-Droid before release
 
 - [Feature] Add rpcinfo feature to new BLE api
 - [Feature] Infrared controls
@@ -25,6 +26,8 @@ Attention: don't forget to add the flag for F-Droid before release
 - [Feature] New File Manager search
 - [Feature] Add illustrations, search, hold to dispatch into RemoteControls
 - [Feature] Add metrics to infrared remotes
+- [Feature] One-time open tools tab
+- [Feature] Add file editing into new file manager
 - [Refactor] Load RemoteControls from flipper, emulating animation
 - [Refactor] Update to Kotlin 2.0
 - [Refactor] Replace Ktorfit with Ktor requests in remote-controls
@@ -37,6 +40,7 @@ Attention: don't forget to add the flag for F-Droid before release
 - [Refactor] Migrate filemanager to new ble api
 - [Refactor] Migrate more core:ui modules into multiplatform
 - [FIX] Small UI fixes for mfkey32 feature
+- [Refactor] Migrate filemengr modules into MPP
 - [FIX] Distinct fap items by id in paging sources
 - [FIX] Battery level charge
 - [FIX] Button arrow tint
@@ -62,6 +66,11 @@ Attention: don't forget to add the flag for F-Droid before release
 - [FIX] Remove share from remote controls
 - [FIX] Remove "RPC" argument from screen streaming request
 - [FIX] Fix remote-controls duplication ir files
+- [FIX] Fix infrared remotes card beta text color
+- [FIX] Fix disappeared file manager
+- [FIX] Add deeplink fallback for flipper scheme uri
+- [FIX] Change description of remotes library card
+- [FIX] Fix bytes race in new api
 - [CI] Fix merge-queue files diff
 - [CI] Add https://github.com/LionZXY/detekt-decompose-rule
 - [CI] Enabling detekt module for android and kmp modules

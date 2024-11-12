@@ -1,7 +1,6 @@
 plugins {
     id("flipper.android-app")
-    id("flipper.anvil.kapt")
-    id("kotlin-kapt")
+    id("flipper.anvil.entrypoint")
     id("kotlinx-serialization")
 }
 
@@ -48,6 +47,7 @@ dependencies {
     implementation(projects.components.bridge.connection.feature.getinfo.impl)
     implementation(projects.components.bridge.connection.feature.lagsdetector.api)
     implementation(projects.components.bridge.connection.feature.lagsdetector.impl)
+    implementation(projects.components.bridge.connection.feature.actionnotifier.api)
     implementation(projects.components.bridge.connection.feature.protocolversion.api)
     implementation(projects.components.bridge.connection.feature.protocolversion.impl)
     implementation(projects.components.bridge.connection.feature.provider.api)
@@ -84,6 +84,8 @@ dependencies {
     implementation(projects.components.filemngr.upload.impl)
     implementation(projects.components.filemngr.search.api)
     implementation(projects.components.filemngr.search.impl)
+    implementation(projects.components.filemngr.editor.api)
+    implementation(projects.components.filemngr.editor.impl)
 
     implementation(projects.components.newfilemanager.api)
     implementation(projects.components.newfilemanager.impl)
@@ -98,7 +100,7 @@ dependencies {
 
     // Dagger deps
     implementation(libs.dagger)
-    kapt(libs.dagger.kapt)
+    commonKsp(libs.dagger.compiler)
 
     implementation(libs.timber)
 

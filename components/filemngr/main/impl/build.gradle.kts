@@ -6,7 +6,7 @@ plugins {
 }
 android.namespace = "com.flipperdevices.filemanager.main.impl"
 
-androidDependencies {
+commonDependencies {
     implementation(projects.components.core.di)
     implementation(projects.components.core.ktx)
     implementation(projects.components.core.log)
@@ -18,15 +18,13 @@ androidDependencies {
     implementation(projects.components.core.ui.res)
 
     implementation(projects.components.bridge.dao.api)
-    implementation(projects.components.bridge.service.api)
-    implementation(projects.components.bridge.pbutils)
-    implementation(projects.components.bridge.api)
 
     implementation(projects.components.filemngr.uiComponents)
     implementation(projects.components.filemngr.main.api)
     implementation(projects.components.filemngr.listing.api)
     implementation(projects.components.filemngr.upload.api)
     implementation(projects.components.filemngr.search.api)
+    implementation(projects.components.filemngr.editor.api)
     implementation(projects.components.newfilemanager.api)
 
     // Compose

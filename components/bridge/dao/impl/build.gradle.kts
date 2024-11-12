@@ -21,7 +21,7 @@ dependencies {
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    ksp(libs.room.ksp)
+    commonKsp(libs.room.ksp)
 
     implementation(libs.kotlin.immutable.collections)
     implementation(libs.okio)
@@ -29,6 +29,7 @@ dependencies {
 
     // Testing
     testImplementation(projects.components.core.test)
+    testImplementation(projects.components.core.buildKonfig)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.mockito.kotlin)

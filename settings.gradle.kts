@@ -82,6 +82,7 @@ include(
     ":components:bridge:connection:feature:protocolversion:impl",
     ":components:bridge:connection:feature:lagsdetector:api",
     ":components:bridge:connection:feature:lagsdetector:impl",
+    ":components:bridge:connection:feature:actionnotifier:api",
     ":components:bridge:connection:feature:serialspeed:api",
     ":components:bridge:connection:feature:serialspeed:impl",
 
@@ -98,6 +99,8 @@ include(
     ":components:filemngr:upload:impl",
     ":components:filemngr:search:api",
     ":components:filemngr:search:impl",
+    ":components:filemngr:editor:api",
+    ":components:filemngr:editor:impl",
 
     ":components:core:di",
     ":components:core:ktx",
