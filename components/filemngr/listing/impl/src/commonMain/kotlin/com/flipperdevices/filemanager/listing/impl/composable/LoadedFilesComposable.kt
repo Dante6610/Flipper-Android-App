@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.flipperdevices.bridge.connection.feature.storage.api.model.FileType
 import com.flipperdevices.core.ktx.jre.toFormattedSize
 import com.flipperdevices.core.preference.pb.FileManagerOrientation
-import com.flipperdevices.filemanager.listing.impl.model.ExtendedListingItem
+import com.flipperdevices.filemanager.listing.api.model.ExtendedListingItem
 import com.flipperdevices.filemanager.listing.impl.model.PathWithType
 import com.flipperdevices.filemanager.listing.impl.viewmodel.DeleteFilesViewModel
 import com.flipperdevices.filemanager.listing.impl.viewmodel.FilesViewModel
@@ -43,24 +43,29 @@ fun LazyGridScope.LoadedFilesComposable(
         val isFileLoading = remember(deleteFileState.fileNamesOrNull) {
             deleteFileState.fileNamesOrNull.orEmpty().contains(file.itemName)
         }
-        Crossfade(isFileLoading) { animatedIsFileLoading ->
+        Crossfade(
+            targetState = isFileLoading,
+            modifier = Modifier.animateItem()
+        ) { animatedIsFileLoading ->
             if (animatedIsFileLoading) {
                 FolderCardPlaceholderComposable(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .animateItem()
                         .animateContentSize(),
                     orientation = orientation,
                 )
             } else {
                 val filePathWithType = remember(path, file.itemName) {
                     val fullPath = path.resolve(file.itemName)
-                    PathWithType(file.itemType, fullPath)
+                    PathWithType(
+                        fileType = file.itemType,
+                        fullPath = fullPath,
+                        size = file.sizeOrNull ?: 0
+                    )
                 }
                 FolderCardComposable(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .animateItem()
                         .animateContentSize(),
                     painter = file.asListingItem().asPainter(),
                     iconTint = file.asListingItem().asTint(),

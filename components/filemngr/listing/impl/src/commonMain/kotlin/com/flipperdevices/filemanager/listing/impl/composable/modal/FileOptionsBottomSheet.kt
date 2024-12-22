@@ -9,41 +9,48 @@ import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.value.Value
 import com.flipperdevices.filemanager.listing.impl.model.PathWithType
 import com.flipperdevices.filemanager.listing.impl.viewmodel.DeleteFilesViewModel
-import com.flipperdevices.filemanager.listing.impl.viewmodel.EditFileViewModel
 import com.flipperdevices.filemanager.listing.impl.viewmodel.SelectionViewModel
 
 @Composable
 fun FileOptionsBottomSheet(
-    createFileViewModel: EditFileViewModel,
     fileOptionsSlot: Value<ChildSlot<*, PathWithType>>,
     slotNavigation: SlotNavigation<PathWithType>,
     selectionViewModel: SelectionViewModel,
     deleteFileViewModel: DeleteFilesViewModel,
+    onDownloadFile: (PathWithType) -> Unit,
+    onRename: (PathWithType) -> Unit,
+    onMoveTo: (PathWithType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     SlotModalBottomSheet(
         childSlotValue = fileOptionsSlot,
         onDismiss = { slotNavigation.dismiss() },
-        content = {
+        content = { pathWithType ->
             BottomSheetOptionsContent(
                 modifier = modifier.navigationBarsPadding(),
-                fileType = it.fileType,
-                path = it.fullPath,
+                fileType = pathWithType.fileType,
+                path = pathWithType.fullPath,
                 onCopyTo = {}, // todo
                 onSelect = {
-                    selectionViewModel.select(it)
+                    selectionViewModel.select(pathWithType)
                     slotNavigation.dismiss()
                 },
                 onRename = {
-                    createFileViewModel.onRename(it)
+                    onRename.invoke(pathWithType)
                     slotNavigation.dismiss()
                 },
-                onExport = {}, // todo
+                onExport = {
+                    onDownloadFile.invoke(pathWithType)
+                    slotNavigation.dismiss()
+                },
                 onDelete = {
-                    deleteFileViewModel.tryDelete(it.fullPath)
+                    deleteFileViewModel.tryDelete(pathWithType.fullPath)
                     slotNavigation.dismiss()
                 },
-                onMoveTo = {} // todo
+                onMoveTo = {
+                    onMoveTo.invoke(pathWithType)
+                    slotNavigation.dismiss()
+                }
             )
         }
     )
